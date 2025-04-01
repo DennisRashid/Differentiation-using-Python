@@ -1,6 +1,7 @@
 #%%
 import numpy as np
 from scipy import integrate
+from scipy import interpolate
 import matplotlib.pyplot as plt
 
 #Creating a fuction that returns the solution of the coupled spring system
@@ -29,6 +30,8 @@ while sol.successful() and sol.t < t[-1]:
     y[idx, :] = sol.y
     sol.integrate(sol.t + dt) # Integrate the system
     idx += 1 # Increment the index
+y_sol = sol.y # Store the final solution
+y_solution = interpolate.interp1d(t[:idx, ], y[:idx, ], axis=0) # Interpolate the solution
 
 fig = plt.figure(figsize=(8, 4)) # Create a figure
 ax1 = plt.subplot2grid((2, 5), (0, 0), colspan = 3) # Create a subplot for the first spring

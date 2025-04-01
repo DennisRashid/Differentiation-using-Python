@@ -1,6 +1,7 @@
 #%%
 import numpy as np
 from scipy import integrate
+from scipy import interpolate
 import matplotlib.pyplot as plt
 import sympy
 sympy.init_printing()
@@ -40,6 +41,8 @@ while r.successful()and r.t < t[-1]:
     y[idx, :] = r.y
     r.integrate(r.t + dt)
     idx += 1 
+
+y_solution = interpolate.interp1d(t[:idx], y[:idx, :], axis=0)
 
 theta1_np, theta2_np = y[:, 0], y[:, 2]
 x1 = params[l1] * np.sin(theta1_np)
